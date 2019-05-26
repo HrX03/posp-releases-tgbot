@@ -8,10 +8,11 @@ import http.server
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import socketserver
 import re
+import os
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-token = ENV['token']
+token = os.environ['token']
 
 updater = Updater(token)
 dispatcher = updater.dispatcher
