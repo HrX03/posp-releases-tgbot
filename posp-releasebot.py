@@ -4,8 +4,6 @@ from datetime import datetime
 from telegram.ext import Updater, CommandHandler
 from telegram import ParseMode
 import logging
-import http.server
-from http.server import BaseHTTPRequestHandler, HTTPServer
 import socketserver
 import re
 import os
@@ -16,40 +14,6 @@ token = os.environ['token']
 
 updater = Updater(token)
 dispatcher = updater.dispatcher
-
-class S(BaseHTTPRequestHandler):
-    def _set_response(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
-
-    def do_GET(self):
-        self._set_response()
-        self.wfile.write("Don't even try it".encode('utf-8'))
-
-    def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
-        post_data = re.sub("'", "", str(self.rfile.read(content_length)).replace("b", ""))
-
-        print(post_data)
-
-        if post_data.startswith("device="[0:7]):
-            new_update = checkUpdates("New update available", post_data.replace("device=", ""))
-            if not (new_update.startswith("No updates found for device")):
-                #params = (
-                #    ('chat_id', -1001270384479),
-                #    ('text', new_update),
-                #    ('parse_mode', "Markdown"),
-                #    ('disable_web_page_preview', "yes")
-                #)
-
-                #requests.post("https://api.telegram.org/bot" + token + "/sendMessage", params=params)
-
-                self.wfile.write(new_update.encode('utf-8'))
-            else:
-                self.wfile.write("Unknown device.".encode('utf-8'))
-        else:
-            return
 
 def latest(bot, update):
     try:
@@ -81,24 +45,7 @@ def checkUpdates(update_string, device):
     else:
         return "No updates found for device " + device
 
-def sendUpdateMessageToChannel(bot, update):
-    -1001467812943
-
-def run(server_class=HTTPServer, handler_class=S, port=8080):
-    logging.basicConfig(level=logging.INFO)
-    server_address = ('', port)
-    httpd = server_class(server_address, handler_class)
-    logging.info('Starting httpd...\n')
-    try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        pass
-    httpd.server_close()
-    logging.info('Stopping httpd...\n')
-
 latest_handler = CommandHandler('latest', latest)
 dispatcher.add_handler(latest_handler)
 
 updater.start_polling()
-
-run()
