@@ -1,1 +1,1 @@
-web: python posp-releasebot.py
+worker: python posp-releasebot.py
