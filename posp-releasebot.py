@@ -34,9 +34,12 @@ def changelog(bot, update):
 
 def checkUpdates(update_string, device):
     payload = {'device': device, 'type': 'weekly'}
-    r = requests.get("https://api.potatoproject.co/checkUpdate", params=payload)
 
     try:
+        r = requests.get("https://api.potatoproject.co/checkUpdate", params=payload)
+        posp_standard_json = r.json()['response'][-1]
+    except ConnectionError:
+        r = requests.get("http://api.strangebits.co.in/checkUpdate", params=payload, verify=False)
         posp_standard_json = r.json()['response'][-1]
     except IndexError:
         r = None
