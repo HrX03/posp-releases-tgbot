@@ -22,15 +22,15 @@ def latest(bot, update):
         device = None
 
     if not (device is None):
-        bot.send_message(chat_id=update.message.chat_id, parse_mode=ParseMode.MARKDOWN, text=checkUpdates("Latest update", device))
+        update.message.reply_markdown(checkUpdates("Latest update", device), disable_web_page_preview=True)
     else:
-        bot.send_message(chat_id=update.message.chat_id, text="Device can't be empty.\nUsage: /latest <device>")
+        update.message.reply_markdown("Device can't be empty.\nUsage: /latest <device>")
 
 def changelog(bot, update):
     cl_text = requests.get("https://raw.githubusercontent.com/PotatoProject/vendor_potato/baked-release/CHANGELOG.md").text.replace("# Changelog\n", "")
     cl_array = cl_text.split("\n\n### ")
 
-    bot.send_message(chat_id=update.message.chat_id, text="Latest release changelog:\n" + cl_array[1])
+    update.message.reply_text("Latest release changelog:\n" + cl_array[1])
 
 def checkUpdates(update_string, device):
     payload = {'device': device, 'type': 'weekly'}
