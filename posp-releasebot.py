@@ -73,9 +73,11 @@ def checkUpdates(update_string, device, type):
             return "No updates found for device " + device
 
 def devices(bot, update):
-    devices_text = requests.get("https://raw.githubusercontent.com/PotatoProject/vendor_potato/baked-release/potato.devices").text
+    devices = requests.get("https://raw.githubusercontent.com/PotatoProject/vendor_potato/baked-release/potato.devices").text
+    devices_array = devices.split('\n')
+    print(devices_array)
 
-    update.message.reply_text("Complete list of official devices:\n" + devices_text)
+    update.message.reply_markdown("Complete list of *official* devices:\n    " + "\n    ".join(devices_array))
 
 def parse_maintainer(device):
     if device == "bacon":
