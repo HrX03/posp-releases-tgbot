@@ -44,7 +44,7 @@ def changelog(bot, update):
     cl_text = requests.get("https://raw.githubusercontent.com/PotatoProject/vendor_potato/baked-release/CHANGELOG.md").text.replace("# Changelog\n", "")
     cl_array = cl_text.split("\n\n### ")
 
-    update.message.reply_text("Latest release changelog:\n" + cl_array[1])
+    update.message.reply_text("Latest release changelog:\n" + cl_array[0])
 
 def checkUpdates(update_string, device, type):
     payload = {'device': device, 'type': type}
@@ -115,7 +115,7 @@ def parse_maintainer(device):
     elif device == "tissot":
         return "Keian (keikei14)"
     elif device == "vince":
-        return "4PERTURE (probuildbot)"
+        return "4PERTURE (prudev)"
     elif device == "whyred":
         return "rajadeja (jadejaraj)"
     elif device == "X00T":
