@@ -92,28 +92,18 @@ def parse_maintainer(device):
         return "Argraur (argraur)"
     elif device == "enchilada":
         return "Samriddha Basu (TheDorkKnightRises)"
-    elif device == "fajita":
-        return "Ujwal (Raidenv1)"
     elif device == "kenzo":
         return "Absar Rahman (adolfthereaper)"
     elif device == "mido":
-        return "Rahul (beingmishra)"
+        return "Raj Jadeja (rajadeja)"
     elif device == "oneplus2":
         return "Shreyansh Lodha (ShreyanshLodha)"
     elif device == "oneplus3":
         return "Jagrav Naik (Jagrav Naik)"
     elif device == "onyx":
         return "Kushagra Vipradas (warmachine98)"
-    elif device == "potter":
-        return "Ashwin R C (AshwinRC)"
-    elif device == "sagit":
-        return "dpatrongomez (dpatrongomez)"
     elif device == "sanders":
         return "Dybios (Dybios)"
-    elif device == "santoni":
-        return "Zainudin Shamilov (ErrorNetwork28)"
-    elif device == "tissot":
-        return "Keian (keikei14)"
     elif device == "vince":
         return "4PERTURE (prudev)"
     elif device == "whyred":
